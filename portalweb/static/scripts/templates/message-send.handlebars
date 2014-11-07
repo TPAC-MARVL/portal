@@ -1,0 +1,52 @@
+<form role="form" action="{{post_url}}" method="post">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title" id="myModalLabel"><span class="glyphicon glyphicon-ok"></span>{{title}}</h4>
+        </div>
+        <div class="modal-body">      
+          <div class="form-group">
+            <label for="message_title">Title</label>
+            <input class="form-control" id="message_title" name="message_title" placeholder="Enter title">
+          </div>
+          <div class="form-group">
+            <label for="message_content">Content</label>
+            <textarea id="message_content" name="message_content" class="form-control" rows="6" placeholder="Entet content"></textarea>
+          </div>
+          
+          <div class="radio">
+			  <label>
+			    <input type="radio" name="sendOption" id="sendOption1" value="member" checked>
+			    Send to members
+			  </label>
+		  </div>
+		  
+		  <div class="radio">
+			  <label>
+			    <input type="radio" name="sendOption" id="sendOption2" value="group">
+			    Send to groups
+			  </label>
+		  </div>
+          
+           <div id="message_members" class="form-group">
+            <select multiple name="member_ids" class="form-control">
+			  {{#each members}}
+			    <option value="{{this.id}}">{{this.name}}</option>
+	          {{/each}}
+			</select>
+           </div>
+           
+           <div id="message_groups" class="form-group hidden">
+            <select multiple name="group_ids" class="form-control">
+			  {{#each groups}}
+			    <option value="{{this.id}}">{{this.name}}</option>
+	          {{/each}}
+			</select>
+           </div>
+        </div>
+        
+        <div class="modal-footer">
+          <input type="hidden" name="csrfmiddlewaretoken" value="{{csrf_token}}">
+          <button type="submit" class="btn btn-primary">Send</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        </div>
+ </form>

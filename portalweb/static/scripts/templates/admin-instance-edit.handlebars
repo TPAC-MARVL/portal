@@ -1,0 +1,149 @@
+<form id="commonForm" role="form" action="{{post_url}}" method="post">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title" id="myModalLabel"><span class="glyphicon glyphicon-ok"></span>{{title}}</h4>
+        </div>
+        <div class="modal-body">      
+          <div class="form-group">
+            <label for="instance_name">Name (Max 30 characters)</label>
+            {{#if view_type.edit_view}}
+               <input class="form-control" id="instance_name" name="instance_name" placeholder="Enter Name" value="{{instance_name}}" data-bv-notempty="true" maxlength="30" data-bv-notempty-message="The name field is required and cannot be empty">       
+            {{/if}}
+            
+            {{#if view_type.insert_view}}
+              <input class="form-control" id="instance_name" name="instance_name" placeholder="Enter Name" data-bv-notempty="true" maxlength="30" data-bv-notempty-message="The name field is required and cannot be empty">
+            {{/if}} 
+          </div>
+          <div class="form-group">
+            <label for="instance_ip">IP (123.123.123.123)</label>
+            {{#if view_type.edit_view}}
+              <input class="form-control" id="instance_ip" name="instance_ip" value="{{instance_ip}}" data-bv-notempty="true" data-bv-notempty-message="The ip field is required and cannot be empty" maxlength="15">       
+            {{/if}}
+            
+            {{#if view_type.insert_view}}
+              <input class="form-control" id="instance_ip" name="instance_ip" placeholder="Entet IP" type="ip" data-bv-ip-message="the IP is not valid" data-bv-notempty="true" data-bv-notempty-message="The ip field is required and cannot be empty" maxlength="15">
+            {{/if}} 
+          </div>
+          <div class="form-group">
+            <label for="instance_url">URL (http://example.com)</label>
+            
+            {{#if view_type.edit_view}}
+               <input class="form-control" id="instance_url" name="instance_url" placeholder="Entet URL" value="{{instance_url}}" type="url" data-bv-uri-message="The url is not valid" data-bv-notempty="true" data-bv-notempty-message="The url field is required and cannot be empty">         
+            {{/if}}
+            
+            {{#if view_type.insert_view}}
+               <input class="form-control" id="instance_url" name="instance_url" placeholder="Entet URL" type="url" data-bv-uri-message="The url is not valid" data-bv-notempty="true" data-bv-notempty-message="The url field is required and cannot be empty">     
+            {{/if}}           
+          
+          </div>
+          
+          <div class="form-group">
+            <label for="instance_state">State</label>
+            <select id="instance_state" class="form-control" name="instance_state" data-bv-notempty="true">
+              {{#if view_type.edit_view}}
+                {{#if instance_state.running }}
+                   <option value="running" selected="selected">running</option> 
+                {{else}}
+                  <option value="running">running</option>
+                {{/if}}
+                
+                {{#if instance_state.stopped }}
+                   <option value="stopped" selected="selected">stopped</option>
+                {{else}}
+                   <option value="stopped">stopped</option>
+                {{/if}}
+              {{/if}}
+              {{#if view_type.insert_view}}
+                <option value="running">running</option>
+                <option value="stopped">stopped</option>
+              {{/if}}
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="instance_type">Type</label>
+            <select id="instance_type" class="form-control" name="instance_type" data-bv-notempty="true">
+              {{#if view_type.edit_view}}
+                {{#if instance_type.small }}
+                   <option value="m1.small" selected="selected">small</option> 
+                {{else}}
+                  <option value="m1.small">small</option>
+                {{/if}}
+                
+                {{#if instance_type.large }}
+                   <option value="m1.xlarge" selected="selected">large</option>
+                {{else}}
+                   <option value="m1.xlarge">large</option>
+                {{/if}}
+              {{/if}}
+              {{#if view_type.insert_view}}
+                <option value="m1.small">small</option>
+                <option value="m1.xlarge">large</option>
+              {{/if}}
+            </select>
+          </div>
+          
+            <div class="form-group">
+                  <label for="instance_visibility">Shared?</label>
+              
+                  <div class="radio">                
+                     {{#if view_type.insert_view}}
+                        <input type="radio"  name="instance_visibility" value="public" data-bv-notempty="true" data-bv-notempty-message="The visibility field is required and cannot be empty" />
+                     {{/if}}
+                     
+                      {{#if view_type.edit_view}}
+              
+                       {{#if instance_public}}
+                         <input type="radio" name="instance_visibility" value="public" checked="checked" data-bv-notempty="true" data-bv-notempty-message="The visibility field is required and cannot be empty" />
+                       {{else}}
+                         <input type="radio" name="instance_visibility" value="public" data-bv-notempty="true" data-bv-notempty-message="The visibility field is required and cannot be empty" />
+                       {{/if}}
+                      {{/if}}
+                     Public
+                  </div>
+                  <div class="radio">
+                    {{#if view_type.insert_view}}
+                      <input type="radio" name="instance_visibility" value="private" data-bv-notempty="true" data-bv-notempty-message="The visibility field is required and cannot be empty" />
+                    {{/if}}
+                    
+                       {{#if view_type.edit_view}}
+              
+                       {{#if instance_public}}
+                         <input type="radio" name="instance_visibility" value="private" data-bv-notempty="true" data-bv-notempty-message="The visibility field is required and cannot be empty" />       
+                       {{else}}
+                         <input type="radio" name="instance_visibility" value="private" checked="checked" data-bv-notempty="true" data-bv-notempty-message="The visibility field is required and cannot be empty" />
+                       {{/if}}
+                      {{/if}}
+                      Private
+                  </div>     
+            </div>
+        </div>
+        
+        
+        <div class="modal-footer">
+          <input type="hidden" name="csrfmiddlewaretoken" value="{{csrf_token}}">
+          {{#if view_type.edit_view}}
+            <input type="hidden" id="instance_id" name="instance_id" value="{{instance_id}}">
+          {{/if}}
+          <button type="submit" class="btn btn-primary">submit</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        </div>
+ </form>
+ 
+  <script>
+ $(document).ready(function() {
+    $('#commonForm').bootstrapValidator({
+        fields:{
+          instance_ip: {
+            validators: {
+                ip:{
+                  message: 'The ip field is not valid',
+                  ipv4: true,
+                  ipv6: false,
+                }
+            }           
+          }
+        }
+    });
+ });
+ </script>

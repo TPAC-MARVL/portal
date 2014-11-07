@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{csrf_token}}">
+    
+    <title>Marine Virtual Laboratory Portal (MARVL) {% block title %}{% endblock %}</title>
+    
+	<link rel="stylesheet" href="{{ STATIC_URL }}css/jquery/jquery-ui.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/style.css" >
+    <link rel="stylesheet" href="{{STATIC_URL}}css/bootstrapValidator.min.css" >
+        
+    <link rel="stylesheet" href="{{ STATIC_URL }}{% block subcss %}{% endblock %}" >
+    
+    <script src="{{ STATIC_URL }}scripts/jquery/jquery-1.10.2.min.js"></script>
+    <script src="{{ STATIC_URL }}scripts/jquery/jquery-ui.js"></script>      
+    <script src="{{ STATIC_URL }}scripts/handlebars-v1.3.0.js"></script>
+    <script src="{{ STATIC_URL }}scripts/underscore.js"></script>
+    <script src="{{ STATIC_URL }}scripts/backbone-min.js"></script>
+    <script src="{{STATIC_URL}}scripts/validator/bootstrapValidator.min.js"></script>
+    
+
+    <script src="{{ STATIC_URL }}scripts/base.js"></script>
+    <script src="{{ STATIC_URL }}scripts/templates.js" ></script>
+    <script src="{{ STATIC_URL }}scripts/bootstrap3.0/js/bootstrap.min.js"></script>
+	<script src="{{ STATIC_URL }}scripts/script.js"></script>
+	
+	{% block sub_scripts %}{% endblock %}
+    
+    {% if production == 'true' %}
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-48440012-3', 'marvl.org.au');
+      ga('send', 'pageview');
+    </script>
+        
+    {% endif %}
+  </head>
+  <body>
+    {% block content %}{% endblock %}
+  </body>
+</html>

@@ -1,0 +1,26 @@
+<!-- Modal -->
+<div class="modal fade" id="userDeleteModal{{id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel"><span class="warning-sign glyphicon glyphicon-warning-sign"></span>Remove the user?</h4>
+      </div>
+      <div class="modal-body">
+        <div class="modal-header-box">
+          This user <span class="warning-sign">({{name}})</span> will be permanently removed from your group and cannot be recovered.
+        </div>
+        <div class="modal-warning-box">
+          <span class="confirm-sign glyphicon glyphicon-hand-right"></span> Are you sure?
+        </div>
+      </div>
+      <div class="modal-footer">
+        <form src="/marvl/">
+          
+          <button type="submit" class="btn btn-danger">Remove the user</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        </form>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

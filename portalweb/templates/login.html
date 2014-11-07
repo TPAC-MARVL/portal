@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}- Login{% endblock %}
+
+{% block subcss %}css/login.css{% endblock %}
+
+{% block content %}
+<div class="container login-container">
+  <form action="marvl/home" class="form-signin">
+    <div class="login-logo">   
+      <img src="{{ STATIC_URL }}images/logo200.png" alt="Logo" width=188 height="200" />  
+    </div>
+    <!--  <h2 class="form-signin-heading">Login</h2> -->
+    <div>
+      Marine Virtual Laboratory Portal uses the Australian Access Federation (AAF) for it's authentication. 
+      There have been some issues with some IdPs not conforming with the AAF Core Attributes. 
+      If this prevents you from logging on please contact your local help desk.
+    </div>
+    <div class="right">
+      <button class="btn btn-primary" type="submit">Log In</button>
+    </div>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends "home_base2.html" %}
+
+{% block subContent %}
+
+<div class="page-section-header">Group Members</div>
+
+<table class="table table-striped table-hover" id="members-list-table">
+  <thead>
+    <tr class="table-header">
+      <td class="short-col">Name</td>
+      <td class="short-col">Email</td>
+      <td class="long-col">Organization</td>
+      <td class="action">Action</td>
+    </tr>
+  </thead>
+  <tfoot>
+    <tr class="table-footer">
+      <td colspan="4" id="pagination_member">    
+      </td>
+    </tr>
+  </tfoot>
+</table>
+
+<div class="page-section-header">Group Instances</div>
+
+<table class="table table-striped table-hover" id="instances-list-table">
+  <thead>
+    <tr class="table-header">
+      <td class="short-col">Name</td>
+      <td class="short-col">Size</td>
+      <td class="short-col">State</td>
+      <td class="short-col">Created</td>
+      <td class="short-col">Group</td>
+    </tr>
+  </thead>
+  
+  <tfoot>
+    <tr class="table-footer">
+      <td colspan="5" id="pagination_instance">    
+      </td>
+    </tr>
+  </tfoot>
+</table>
+
+<div id="member-details-modal">
+</div>
+
+<div id="member-delete-modal">
+</div>
+
+<div id="instance-details-modal">
+</div>
+
+{% endblock %}

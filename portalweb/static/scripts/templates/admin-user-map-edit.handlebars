@@ -1,0 +1,55 @@
+<form role="form" action="{{post_url}}" method="post">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title" id="myModalLabel"><span class="glyphicon glyphicon-ok"></span>{{title}}</h4>
+        </div>
+        <div class="modal-body">      
+          
+          <div class="form-group">
+            
+            <label for="email">Email</label>
+            
+            {{#if view_type.edit_view}}
+               <input class="form-control" id="email" name="email" value="{{email}}">
+            {{/if}}
+            
+            {{#if view_type.insert_view}}
+               <input class="form-control" id="email" name="email" placeholder="Enter Email">    
+            {{/if}}    
+          
+          </div>
+          
+          <div class="form-group">      
+            <select id="group_id" name="group_id" class="form-control">
+			  {{#each groups}}
+                {{#if this.selected}}
+                  <option value="{{this.id}}" selected="selected">{{this.name}}</option>
+                {{else}}
+                  <option value="{{this.id}}">{{this.name}}</option>
+                {{/if}}
+               
+              {{/each}}
+		    </select>
+		   </div>
+		   
+            <div class="checkbox">
+              <label>
+                 {{#if is_admin}}
+                    <input name="is_admin" type="checkbox" checked="checked">
+                  {{else}}
+                     <input name="is_admin" type="checkbox">
+                  {{/if}}
+                  
+                  Is Admin
+              </label>
+             </div>           
+          
+        </div>
+        
+        <div class="modal-footer">
+          <input type="hidden" name="csrfmiddlewaretoken" value="{{csrf_token}}">
+          <input type="hidden" name="map_id" value="{{map_id}}">
+          <button type="submit" class="btn btn-primary">submit</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        </div>
+ </form>

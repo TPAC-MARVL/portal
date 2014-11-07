@@ -1,0 +1,43 @@
+{% extends "home_base.html" %}
+
+{% block subContent %}
+
+<!-- 
+<div class="well">
+  {% if phase == '2' %}
+    <h2>Virtual Machines</h2>
+  {% else %}
+    <h2>Model Control</h2>
+  {% endif %}
+</div>
+-->
+
+{% block instancesOverview %} {% endblock %}
+
+{% if phase == '2' %}
+<div id="launch" class="modal hide fade">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3>Launch Virtual Machine Wizzard</h3>
+  </div>
+  <div class="modal-body">
+    <form id="instanceForm" action="/marvl/instances/launch" method="post" class="form-horizontal well">
+      <fieldset>
+        <legend>Please select options to launch Virtual Machine:</legend>
+        <div class="control-group">
+         
+        {{ instanceForm.as_p }}
+        
+        <div class="form-actions">
+          {% csrf_token %}
+          <button class="btn btn-inverse" type="submit">Submit</button>
+          <button class="btn" type="reset">Cancel</button>
+        </div>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</div>
+{% endif %}
+
+{% endblock %}

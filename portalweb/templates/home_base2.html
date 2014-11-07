@@ -1,0 +1,280 @@
+{% extends "base.html" %}
+
+{% block title %}- Home{% endblock %}
+
+{% block subcss %}scripts/bootstrap/css/overwrite.css{% endblock %}
+
+{% block content %}
+  <div class="wrapper full-screen" >
+    <div class="row full-screen">
+      <div class="col-sm-2 left-box full-screen">
+        <div id="logo-box" class="row">
+          <img id="logo" src="{{ STATIC_URL }}images/logo120_transparent.png" class="img-responsive" alt="Responsive image">
+        </div>
+        <div id="menu-box" class="row">
+          <div class="list-group">
+	          
+	        {% if current_page == 'Home' %}
+               <a href="/marvl/home" class="list-group-item active">
+            {% else %}
+                <a href="/marvl/home" class="list-group-item">
+            {% endif %}
+	          <span class="glyphicon glyphicon-home"></span>Home</a>
+			  
+			  <a href="#" id="menu1" class="list-group-item"><span class="glyphicon glyphicon-open"></span>Model Control <span class="glyphicon glyphicon-chevron-down right-icon"></span><span class="badge menu-badge">{{instance_list|length}}</span></a>
+			  
+              {% if instance_list|length > 0%}
+                
+                {% if show_instance_parent_menu %}
+                   <div id="sub-menu-1" class="list-group-item">
+                {% else %}
+                   <div id="sub-menu-1" class="list-group-item sub-menu">
+                {% endif %}
+                
+			      <div class="sub-menu-box">
+			        <ul class="list-group">
+                    {% for ins in instance_list %}
+                      <li><a class="sub-menu-list-group-item {% if instance.id == ins.id %} active {% endif %}" href="/marvl/instances/view/{{ins.id}}">{{ins.name}}</a></li>                
+                    {% endfor %}
+                    </ul>
+                  </div>
+			    </div>
+			    
+              {%endif%}
+			         	
+			  <a id="menu2" href="#" class="list-group-item"><span class="glyphicon glyphicon-th-list"></span>Groups <span class="glyphicon glyphicon-chevron-down right-icon"></span> <span class="badge menu-badge">{{group_list|length}}</span></a>			 
+			  
+			  {% if show_alert == 'false' %}
+			  	  
+			  {% if show_group_parent_menu %}
+			    <div id="sub-menu-2" class="list-group-item">
+			  {% else %}
+			    <div id="sub-menu-2" class="list-group-item sub-menu">
+			  {% endif %}			  
+			     
+			    <div class="sub-menu-box">
+			      <ul class="list-group">
+                  {% for group in group_list %}  
+                      <a href="/marvl/groups/view/{{group.id}}" class="sub-menu-list-group-item {% if current_group.id = group.id %} active {% endif %}">{{group.name}}</a>
+                  {% endfor %}
+                  
+                  </ul>
+                </div>		  
+			  </div>
+			  			  
+			  {% endif %}
+			  		  			  
+			  
+			  {% if current_page == 'Model Request Form' %}
+               <a href="/marvl/model_request_form/list" class="list-group-item active">
+              {% else %}
+                <a href="/marvl/model_request_form/list" class="list-group-item">
+              {% endif %}
+			  
+			  <span class="glyphicon glyphicon-send"></span>Model Request</a>			  
+			  
+			  {% if current_page == 'Help' %}
+			    <a href="/marvl/help" class="list-group-item active">
+              
+              {% else %}
+                <a href="/marvl/help" class="list-group-item">
+
+              {% endif %}
+			  
+			  
+			  <span class="glyphicon glyphicon-book"></span>About - Help</a>
+			  <a href="/marvl/logout" class="list-group-item"><span class="glyphicon glyphicon-log-out"></span>Logout</a>
+		  </div>
+        </div>
+                
+        <div id="partner-logo-box" >
+            <dl id="logo-table" class="tableDiv">
+              <dt class="tableRowDiv">
+                <dd class="tableCellDiv"><a href="http://www.nectar.org.au/" target="_blank" title="nectar"><img src="{{ STATIC_URL }}images/logos/nectar_small.png" alt="nectar"></img></a></dd>
+                <dd class="tableCellDiv"><a href="http://www.utas.edu.au/" target="_blank" title="UTAS"><img src="{{ STATIC_URL }}images/logos/utas_small.png" alt="utas"></img></a></dd>
+              </dt>
+              <dt class="tableRowDiv">
+                <dd class="tableCellDiv"><a href="http://www.aims.gov.au/" target="_blank" title="AIMS"><img src="{{ STATIC_URL }}images/logos/aims_small.png" alt="aims"></img></a></dd>   
+                <dd class="tableCellDiv"><a href="http://www.bom.gov.au/" target="_blank" title="BoM"><img src="{{ STATIC_URL }}images/logos/bom_small.png" alt="bom"></img></a></dd>
+              </dt>
+              <dt class="tableRowDiv">
+                <dd class="tableCellDiv"><a href="http://www.csiro.au" target="_blank" title="CSIRO"><img src="{{ STATIC_URL }}images/logos/csiro_small.png" alt="csiro"></img></a></dd>
+                <dd class="tableCellDiv"><a href="http://www.imos.org.au" target="_blank" title="IMOS"><img src="{{ STATIC_URL }}images/logos/imos_small.png" alt="imos"></img></a></dd>
+              </dt>
+              <dt class="tableRowDiv">
+                <dd class="tableCellDiv"><a href="http://www.sardi.sa.gov.au/" target="_blank" title="SARDI"><img src="{{ STATIC_URL }}images/logos/sardi_small.png" alt="sardi"></img></a></dd>
+                <dd class="tableCellDiv"><a href="http://www.tpac.org.au" target="_blank" title="TPAC"><img src="{{ STATIC_URL }}images/logos/tpac_small.png" alt="tpac"></img></a></dd>
+              </dt>
+              <dt class="tableRowDiv">
+                <dd class="tableCellDiv"><a href="http://www.unsw.edu.au" target="_blank" title="UNSW"><img src="{{ STATIC_URL }}images/logos/unsw_small.png" alt="unsw"></img></a></dd>
+                <dd class="tableCellDiv"><a href="http://www.uwa.edu.au" target="_blank" title="UWA"><img src="{{ STATIC_URL }}images/logos/uwa_small.png" alt="uwa"></img></a></dd>
+              </dt>
+           </dl>
+        </div>
+      </div>
+      
+       <div class="col-sm-10 right-box full-screen">
+       
+         <div class="row breadcrumbs-box">
+   
+           <ol class="breadcrumb full-screen">          
+            {% if request.session.breadcrumbs_list|length = 1 %}
+                {% if request.session.breadcrumbs_list.0.3 %} 
+                  <li class="active"><span class="glyphicon {{request.session.breadcrumbs_list.0.2}}"></span>{{request.session.breadcrumbs_list.0.0}}</li>
+                {% else %}
+                  <li class="active">{{request.session.breadcrumbs_list.0.0}}</li>
+                {% endif %}
+                
+            {% else %}
+                {% for item in request.session.breadcrumbs_list %}
+                  {% if forloop.last %}
+                    <li class="active">{{item.0}}</li>
+                  {% else %}
+                    {% if forloop.first %}
+                      <li><a href="{{item.1}}"><span class="glyphicon {{item.2}}"></span>{{item.0}}</a></li>    
+                    {% else %} 
+                      <li><a href="{{item.1}}">{{item.0}}</a></li> 
+                    {% endif %}                    
+                  {% endif %}
+                {% endfor %}
+            {% endif %}
+
+           </ol>
+             <div class="system-box full-screen">
+               <ul class="nav navbar-nav full-screen">
+                 <li id="notification-box" class="dropdown full-screen">
+                 <a href="#" class="dropdown-toggle notification-box-link" data-toggle="dropdown"><span class="notification-glyphicon glyphicon-bell"></span><span class="badge">{{notifications_total}}</span></a>
+                   <ul class="dropdown-menu notification-box-menu">
+                     <li class="notification-header-box"><span class="glyphicon glyphicon-info-sign"></span>{{notifications_list|length}} Notifications</li>
+                    
+                     {% for notification in notifications_list %}
+                       <li><a href="#" class="dropdown-menu-item" data-toggle="modal" data-target="#notificationModal{{notification.id}}"><span class="glyphicon glyphicon-unchecked"></span><span class="dropdown-menu-item-text">{{notification.title}}</span></a></li>
+			           <li class="dropdown-divider"></li>
+                     {% endfor %}
+  			       
+			         <li class="notification-bottom-box"><a href="/marvl/notifications/list" id="notification-links">See all notifications</a> <span class="glyphicon glyphicon-circle-arrow-right"></span></li>
+                   </ul>                 
+                 </li>  
+                 
+                 <li id="message-box" class="full-screen"><a href="#" class="dropdown-toggle message-box-link" data-toggle="dropdown"><span class="message-glyphicon glyphicon-envelope"></span><span class="badge">{{messages_list|length}}</span></a>
+                   <ul class="dropdown-menu message-box-menu">
+                     <li class="message-header-box"><span class="glyphicon glyphicon-envelope"></span> {{ messages_total }} Messages</li>
+                     
+                     {% for message in messages_list %}
+                       <li><a href="#" class="dropdown-menu-item" data-toggle="modal" data-target="#messageModal{{message.id}}"><span class="glyphicon glyphicon-unchecked"></span><span class="dropdown-menu-item-text">{{message.title}}</span></a></li>
+                       <li class="dropdown-divider"></li>
+                     {% endfor %}
+         
+                     <li class="notification-bottom-box"><a id="message-links" href="/marvl/messages/list" >See all messages</a> <span class="glyphicon glyphicon-circle-arrow-right"></span></li>
+                   </ul>
+                 </li>                                
+                 
+                 <li class="dropdown full-screen" id="login-box">
+                   <a href="#" class="dropdown-toggle login-box-link" data-toggle="dropdown">Welcome, {{request.session.user.name}} <b class="caret"></b></a>
+			       <ul class="dropdown-menu profile-box">
+			         <!-- <li><a href="#"><span class="glyphicon glyphicon-cog"></span>Settings</a></li> -->
+			         <li><a href="#" data-toggle="modal" data-target="#userProfileModal"><span class="glyphicon glyphicon-user"></span>Profile</a></li>
+			         <!--  <li class="divider"></li>
+			         <li><a href="/marvl/logout">Logout</a></li> -->
+			       </ul>
+                 </li>
+               </ul>
+             </div>         
+             <div class="clean"></div> 
+           
+           
+         </div>
+       
+         <div class="row content-box">
+            
+            {% if messages %}
+              {% for message in messages %}
+               <div {% if message.tags %} class="alert alert-{{ message.tags }} alert-dismissable"{% endif %}>
+                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                 <strong>{{message.tags|capfirst}}:</strong>
+                 {{ message }}
+               </div>
+              {% endfor %}
+            {% endif %}
+            
+            {% block subContent %}{% endblock %}
+            
+         </div>
+       
+        <div id=footer class="row">The Marine Virtual Laboratory (MARVL) copyright 2014</div>
+       
+       </div>
+      
+    </div>
+  </div>
+  
+<div class="modal fade" id="userProfileModal" tabindex="-1" role="dialog" aria-labelledby="member-details-modal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel"><span class="glyphicon glyphicon-ok"></span>User Profile</h4>
+      </div>
+      <div class="modal-body">
+        <div><span class="modal-text-header">Member Name:</span><span class="modal-text-field">{{request.session.profile.name}}</span></div>
+        <div><span class="modal-text-header">Email:</span><span class="modal-text-field">{{request.session.profile.email}}</span></div>
+        <div><span class="modal-text-header">Organization:</span><span class="modal-text-field">{{request.session.profile.organization}}</span></div>
+        <div><span class="modal-text-header">AAF User:</span><span class="modal-text-field">{% if request.session.profile.aafuser = '1' %} yes {% else %} no {%endif%}</span></div>
+        <div><span class="modal-text-header">Created Time:</span><span class="modal-text-field">{{request.session.profile.created}}</span></div>
+        <div><span class="modal-text-header">Available models:</span><span class="modal-text-field">{{request.session.profile.models}}</span></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div>
+
+{% for notification in notifications_list %}
+<div class="modal fade" id="notificationModal{{notification.id}}" tabindex="-1" role="dialog" aria-labelledby="member-details-modal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel"><span class="glyphicon glyphicon-ok"></span>Notification</h4>
+      </div>
+      <div class="modal-body">
+        <div><span class="modal-text-header">Title:</span><span class="modal-text-field">{{notification.title}}</span></div>
+        <div><span class="modal-text-header">Content:</span><span class="modal-text-field">{{notification.content}}</span></div>
+        <div><span class="modal-text-header">Sent By:</span><span class="modal-text-field">{{notification.user_from.name}}</span></div>
+        <div><span class="modal-text-header">Created Time:</span><span class="modal-text-field">{{notification.created|date:"d-m-Y" }}</span></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div>
+ {% endfor %}
+
+
+{% for message in messages_list %}
+<div class="modal fade" id="messageModal{{message.id}}" tabindex="-1" role="dialog" aria-labelledby="member-details-modal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel"><span class="glyphicon glyphicon-ok"></span>Message</h4>
+      </div>
+      <div class="modal-body">
+        <div><span class="modal-text-header">Title:</span><span class="modal-text-field">{{message.title}}</span></div>
+        <div><span class="modal-text-header">Content:</span><span class="modal-text-field">{{message.content}}</span></div>
+        <div><span class="modal-text-header">Sent By:</span><span class="modal-text-field">{{message.user_from.name}}</span></div>
+        <div><span class="modal-text-header">Created Time:</span><span class="modal-text-field">{{message.created|date:"d-m-Y" }}</span></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div>
+ {% endfor %}
+
+<div hidden id="is_admin">{{request.session.user.is_admin}}</div>
+
+{% endblock %}

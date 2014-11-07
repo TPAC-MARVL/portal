@@ -1,0 +1,128 @@
+{% extends "instance/instances_home.html" %}
+
+{% block instancesOverview %}
+
+<script>
+  $(document).ready(function() {
+	  var $tabs = $('#tabs').tabs();
+	  var tabCounter = 4;
+		
+	  $("a.tabref").click(function() {
+		//event code
+	    loadTabFrame($(this).attr("href"), $(this).attr("rel")); 
+	  });
+
+	  loadSelectedTabFrame($tabs);
+      
+      $("#phase").click(function () {
+        $("#launchBtn").toggle();
+        $("#actionContainer").toggle();
+        $("#tabs").toggle();
+        $("#notabs").toggle(); 
+                    
+        if ($(this).text() == "Phase2") {
+          $(this).text("Phase1");
+        } else {
+          $(this).text("Phase2");                
+        }
+      });
+
+      $("#create").click(function () {
+          addTab();	
+      });
+                              
+	  function addTab() {
+	  	  tabs = $('#tabs').tabs();
+	  	  id = "tabs-" + tabCounter;
+          li = '<li><a class="tabref" href="#' + id + '" rel="http://etbwc.com/~mark/marvl/index.html">Instance' + tabCounter + '</a></li>'
+                      
+          tabs.find("ul").append(li);
+          tabs.append("<div id='" + id + "'></div>");
+                                         
+          tabs.tabs("refresh");             
+           
+          $("a.tabref").click(function() {
+		    //event code
+		    loadTabFrame($(this).attr("href"), $(this).attr("rel")); 
+		  });
+		  
+		  $('#tabs').tabs("select" , tabCounter-1);
+		  	
+		  loadSelectedTabFrame(tabs);
+          tabCounter++;
+      }		  
+  });
+
+  function deleteTab(tab) {
+    tabSelected = tabs.tabs('option', 'selected');
+	alert(tabSelected);	
+  }
+	  
+  function loadSelectedTabFrame(tabs) {
+    tabSelected = tabs.tabs('option', 'selected');
+	beginTab = $("#tabs ul li:eq(" + tabSelected + ")").find("a");
+	loadTabFrame($(beginTab).attr("href"),$(beginTab).attr("rel"));	
+  }
+	  
+  function loadTabFrame(tab, url) {
+    if ($(tab).find("iframe").length == 0) {
+	  var html = [];
+      html.push('<div class="tabIframeWrapper">');
+      html.push('<div id="actionContainer" class="btn-group actions"><a id="actionButton" data-toggle="dropdown" class="btn dropdown-toggle" href="#"> Actions <span class="caret"></span></a>\
+                <ul id="actionList" class="dropdown-menu">\
+                  <li><a href="#">Start</a></li>\
+                  <li><a href="#">Pause</a></li>\
+                  <li><a href="#">Suspend</a></li>\
+                  <li class="divider"></li>\
+                  <li><a href="#">Snapshot</a></li>\
+                  <li class="divider"></li>\
+                  <li><a href="#">View Details</a></li>\
+                  <li class="divider"></li>\
+                  <li><a href="#">Reboot</a></li>\
+                  <li><a id="delete" href="#">Delete</a></li>\
+                </ul>\
+             </div>');	          
+        
+      html.push('<iframe class="iframetab" src="' + url + '">Load Failed?</iframe>');
+	  html.push('</div>');
+
+	  $(tab).append(html.join(""));
+	  $(tab).find("iframe").height($(window).height()-60);
+    }
+      
+    return false;
+  }
+        
+</script>
+
+<div class="session container-fluid">
+  <div class="row-fluid">
+    <div class="span4"><h3>Access Virtual Machines</h3></div>
+    <div class="span4"></div>
+    <div class="span4">
+      <a id="launchBtn" href="#launch" class="btn btn-inverse" role="button" data-toggle="modal">Launch New Virtual Machine</a>
+    </div>
+  </div>
+  
+  <div class="row-fluid">
+    <div class="span12">
+	  <div id="tabs">
+        <ul>
+          <li><a class="tabref" href="#tabs-1" rel="http://etbwc.com/~mark/marvl/index.html">Virtual Machine 1</a></li>
+          <li><a class="tabref" href="#tabs-2" rel="http://etbwc.com/~mark/marvl/index.html">Virtual Machine 2</a></li>
+          <li><a class="tabref" href="#tabs-3" rel="http://etbwc.com/~mark/marvl/index.html">Virtual Machine 3</a></li>
+        </ul>
+        <div id="tabs-1" >
+        </div>
+        
+        <div id="tabs-2">
+        </div>
+        
+        <div id="tabs-3">
+        </div>      
+      </div>
+    </div>	
+  </div>
+</div>
+ 
+{% endblock %}

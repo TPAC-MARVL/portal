@@ -1,0 +1,159 @@
+{% extends "home_base2.html" %}
+
+{% block sub_scripts %}
+
+{% endblock %}
+
+{% block subContent %}
+<div class="help-box">
+
+  <div class="help-box-content">
+  
+  <div id="section0" class="help-section">
+   <h3 class="help-session-header">Contents</h3>
+    <ul>
+      <li><a href="#section1">Home Page</a></li>
+      <li><a href="#section2">Model Control</a></li>
+      <li><a href="#section3">Model and Nesting</a></li> 
+      <li><a href="#section4">Grid Definition</a></li>
+      <li><a href="#section5">Temporal extent and forcing data</a></li>
+      <li><a href="#section6">Review configuration and Submit</a></li>
+    </ul>
+  </div>
+  
+  <div class="help-section">
+  <h3 id="section1" class="help-session-header">Home Page <div class="help-top-box"><a href="#section0" ><span class="glyphicon glyphicon-circle-arrow-up"></span></a></div></h3>
+  Click on the Tabs on the left hand panel to access different sections of the portal:
+  <ul>
+    <li><img src="{{ STATIC_URL }}images/help/help1.png" />:create or manage previous model configuration run go model</li>
+    <li><img src="{{ STATIC_URL }}images/help/help2.png" />:provide information about group member. Group managers can also manage their group/group members</li>
+    <li><img src="{{ STATIC_URL }}images/help/help3.png" />:request for a model configuration to be run in the cloud. The request is sent to the system administrator for approval</li>
+  </ul>
+  <div class="help-image-box">
+    <img src="{{ STATIC_URL }}images/help/help11.png" />
+    <div class="figure-text">Figure 1</div>
+  </div>
+  </div>
+  
+  <div class="help-section">
+    <h3 id="section2" class="help-session-header">Model Control <div class="help-top-box"><a href="#section0" ><span class="glyphicon glyphicon-circle-arrow-up"></span></a></div></h3>
+    <ul>
+     <li>Tabs on the upper panel allows to manage run requests</li>
+     <li>Click <img src="{{ STATIC_URL }}images/help/help5.png" /> to start creating a new model configuration</li>
+     <li>The model configuration bundle is automatically downloaded by clicking on <img src="{{ STATIC_URL }}images/help/help4.png" /></li>
+     <li>The data workspace contains:
+      <ul>
+        <li>grid parameterisation</li>
+        <li>initial conditions</li>
+        <li>atmospheric and surface ocean forcing</li>
+        <li>boundary forcings</li>
+        <li>IMOS dataset from the region of interest</li>
+      </ul>
+     </li>
+     <li>Data files are in NetCDF format</li>
+    </ul>
+  
+    <div class="help-image-box">
+      <img src="{{ STATIC_URL }}images/help/help21.png" />
+      <div class="figure-text">Figure 2</div>
+    </div>
+  
+  </div>
+
+<div class="help-section">
+<h3 id="section3" class="help-session-header">Model and Nesting <div class="help-top-box"><a href="#section0" ><span class="glyphicon glyphicon-circle-arrow-up"></span></a></div></h3>
+<ul>
+  <li>This is the first step for creating a new model configuration.</li>
+  <li>The user selects a model from the dropdown list. Available models in MARVL are:
+    <ul>
+      <li>Regional Ocean Modeling System (<a href="https://www.myroms.org/">ROMS</a>)</li>
+      <li>Modular Ocean Model (<a href="http://www.gfdl.noaa.gov/mom-ocean-model">MOM4</a>)</li>
+      <li><a href="http://polar.ncep.noaa.gov/waves/wavewatch/">WaveWatch3</a></li>
+      <li>Simulating Waves Nearshire (<a href="http://swanmodel.sourceforge.net/">SWAN</a>)</li>
+      <li>Ocean data</li>
+      <li>Sparse Hydrodynamic Ocean Code (<a href="http://www.emg.cmar.csiro.au/www/en/emg/software/EMS/hydrodynamics.html">SHOC</a>)</li>
+      <li>Storm INFORMD model (<a href="http://www.emg.cmar.csiro.au/www/en/emg/projects/INFORMD/Project-description.html">SHOC</a>)</li>
+    </ul>  
+  </li>
+  <li>Users may have restricted model options depending on their group membership, i.e. a ROMS group user will only be able to choose the ROMS option.</li>
+</ul>
+  <div class="help-image-box">
+    <img src="{{ STATIC_URL }}images/help/help31.png" />
+    <div class="figure-text">Figure 3</div>
+  </div>
+</div>
+
+<div class="help-section">
+<h3 id="section4" class="help-session-header">Grid Definition <div class="help-top-box"><a href="#section0" ><span class="glyphicon glyphicon-circle-arrow-up"></span></a></div></h3>
+On the right side of the page:
+<ul>
+  <li><img src="{{ STATIC_URL }}images/help/help6.png" />: click to check the spatial coverage of the available forcing datasets. Available forcing dataset are:
+    <ul>
+      <li>Access-a surface</li>
+      <li>NCEP (National Center for Environmental Prediction)</li>
+      <li>BRAN3 (Bluelink Reanalysis)</li>
+      <li>FOAM1 (Forecasting Ocean Assimilation Model)</li>
+      <li>OFAM2 (Ocean Forecasting Australia Model)</li>
+    </ul>  
+  </li>
+  <li><img src="{{ STATIC_URL }}images/help/help7.png" />:set the grid shape. The default shape is rectangular. Option for a curvilinear grid are available for ROMS. Only the horizontal resolution can be parameterized. The vertical grid has a default number of xx levels</li>
+  <li>The parameterisation of the horizontal grid can be achieved in two ways: 
+     <ul>
+       <li>horizontal extent and rotation can be defined by clicking and dragging on the map <span class="red">(A)</span></li>
+       <li>parameter value (origin, size, spacing, rotation) can be entered in the box situated on the right hand panel <span class="red">(B)</span>:
+         <ul>
+           <li>Origin: location on the map of the large white circle. From this point the grid is defined using the parameters size, spacing and rotation</li>
+           <li>Size:  set the number of grid rows and columns</li>
+           <li>Spacing: set longitudinal and latitudinal grid lengths in degrees. If a explicit numerical scheme is used, care should be taken to adjust the model timestep/horizontal resolution to ensure the model numerical stability by fulfilling the CFL criterion</li>
+           <li>Rotation: rotation is anti-clockwise i.e. +10 degrees is 10˚ anti-clockwise</li>
+         </ul>       
+       </li>
+     </ul>
+  </li>
+  <li>Press<img src="{{ STATIC_URL }}images/help/help8.png" />to update the grid parameterisation</li>
+</ul>
+  <div class="help-image-box">
+    <img src="{{ STATIC_URL }}images/help/help41.png" />
+    <div class="figure-text">Figure 4</div>
+  </div>
+</div>
+
+<div class="help-section">
+<h3 id="section5" class="help-session-header">Temporal extent and forcing data <div class="help-top-box"><a href="#section0" ><span class="glyphicon glyphicon-circle-arrow-up"></span></a></div></h3>
+<ul>
+  <li>In the top panel, the temporal extent is either set using the time slider <span class="red">(A)</span> or clicking on the date range above the time slider</li>
+  <li>Temporal extent for atmospheric and ocean forcing dataset are displayed in the panel below under 'Atmosphere' and 'Ocean'</li>
+  <li>Available atmospheric and ocean forcing options are automatically Screen Shot 2014-08-25 at 3.00.19 pmupdated and marked with a clickable bullet <span class="red">(B)</span></li>
+  <li>The list of parameter provided by the chosen forcing dataset is displayed by clicking on the dataset</li>
+</ul>
+ <div class="help-image-box">
+    <img src="{{ STATIC_URL }}images/help/help51.png" />
+    <div class="figure-text">Figure 5</div>
+  </div>
+  <div class="help-image-box">
+    <img src="{{ STATIC_URL }}images/help/help52.png" />
+    <div class="figure-text">Figure 6</div>
+  </div>
+  <div class="help-image-box">
+    <img src="{{ STATIC_URL }}images/help/help53.png" />
+    <div class="figure-text">Figure 7</div>
+  </div>
+</div>
+
+<div class="help-section">
+<h3 id="section6" class="help-session-header">Review configuration and Submit <div class="help-top-box"><a href="#section0" ><span class="glyphicon glyphicon-circle-arrow-up"></span></a></div></h3>
+<ul>
+  <li><img src="{{ STATIC_URL }}images/help/help9.png" />:Insert the name of your run</li>
+  <li>Review the configuration and submit the request</li>
+  <li>Upon submission a message displays the status of the request on the top of the window</li>
+  <li>Click on the status message or go to ‘Model Control’ on the left hand panel to get further details and results from the request</li>
+</ul>
+  <div class="help-image-box">
+    <img src="{{ STATIC_URL }}images/help/help61.png" />
+    <div class="figure-text">Figure 8</div>
+  </div>
+</div>
+
+  </div>
+</div>
+{% endblock %}

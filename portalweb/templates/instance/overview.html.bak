@@ -1,0 +1,203 @@
+{% extends "instance/instances_home.html" %}
+
+{% block instancesOverview %}
+
+{% if phase == '2' %}
+<div class="session container-fluid">
+  <div class="row-fluid">
+    <div class="span3"><h3>Virtual Machines</h3></div>
+    <div class="span4"></div>
+    
+    <div class="span5">
+      <a id="launchBtn" href="#launch" class="btn btn-inverse" role="button" data-toggle="modal">Launch New Virtual Machine</a>
+      
+      {% if instances|length > 0 %}
+        <a href="/marvl/instances/view" class="btn btn-inverse">Access Virtual Machines</a>
+      {% endif %}   
+    </div>
+  </div>
+  
+  {% if messages %}
+    {% for message in messages %}
+    <div id="messageDiv" {% if message.tags %} class="alert alert-{{ message.tags }}"{% endif %}>
+      <a id="messageClose" class="close">x</a>
+      <strong>{{message.tags|capfirst}}</strong>
+      {{ message }}
+    </div>
+    {% endfor %}
+  {% endif %}
+  
+  <div>
+  
+  {% if instances|length > 0 %}
+    <table class="table table-bordered table-striped table-hover">
+    <thead>
+      <tr>
+        <th>Virtual Machine Name</th>
+        <th>IP Address</th>
+        <th>Size</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+    
+    {% for instance in instances %}  
+      <tr>      
+        {% if instance.hasCurrentProcess == "true" %}
+        <script>       
+        (function worker() {
+        	  $.ajax({
+        		url: "/marvl/instances/status/{{instance.id}}", 
+        	    success: success{{instance.id}},
+        	    complete: function(jqXHR) {
+        	      // Schedule the next request when the current one's complete
+        	      o = setTimeout(worker, 10000);
+
+        	      /*if (!(jqXHR.responseText.indexOf("pending") !== -1)) {
+        	    	  clearTimeout(o);
+            	  }*/
+          	    }
+        	  });
+         })();
+        
+        /*$.ajax({
+	      dataType: "json",
+	      url: "/instances/status/{{instance.id}}",
+	      success: success{{instance.id}}
+	    });*/
+
+        function success{{instance.id}}(data, textStatus, jqXHR) {
+          id = 0;
+          state = 0;
+          ip = 0;
+          processStatus = 0
+          
+          $.each(data, function(key, val) {
+            if (key == 'id') {
+              id = val
+            }
+
+            if (key == 'state') {
+              state = val
+            }
+
+            if (key == 'ipAddress') {
+              ip = val
+            }
+
+            if (key == 'processStatus') {
+            	processStatus = val
+            }
+           
+          });
+
+          // Update html content
+          $("#instanceIP"+id).html(ip)
+          
+          if (processStatus == 'finished' || processStatus == 'noprocess' || processStatus == 'error') {
+              if (state != 'pending' && state != null && state != 'undefined' && state != 0) {
+                  $("#instanceState"+id).html(capitaliseFirstLetter(state));
+              }
+          } else {
+          	$("#instanceState"+id).html('<img src="{{ STATIC_URL }}images/ajax-waiting.gif" width="16" height="16" />');
+          }
+          
+          actionHtml = '';  
+          $("#instanceAction"+id).html(actionHtml);
+          // Update action buttons
+          
+          if (processStatus != 'processing') {
+            if (state == 'running') {
+              actionHtml = '<a class="btn btn-inverse" href="instances/stop/' + id + '" >Stop</a><a class="btn btn-inverse dropdown-toggle" href="" data-toggle="dropdown"><span class="caret"></span></a>';
+              actionHtml = actionHtml + '<ul class="dropdown-menu"><li><a href="instances/reboot/' + id + '">Reboot</a></li><li><a href="instances/terminate/' + id + '">Terminate</a></li></ul>';
+              $("#instanceAction"+id).html(actionHtml);
+            }
+
+            if (state == 'stopped') {
+              actionHtml = '<a class="btn btn-inverse" href="instances/start/' + id + '" >Start</a>';
+              $("#instanceAction"+id).html(actionHtml);
+            }
+          }
+        }
+        
+        </script>
+        
+        {% endif %}
+        
+        <td>{{instance.name}}</td>
+        <td id="instanceIP{{instance.id}}">{{instance.ip}}</td>
+        <td>{{instance.getSizeString}}</td>
+        <td id="instanceState{{instance.id}}" class="waiting">
+            {% if instance.hasCurrentProcess == "true" %}
+                <img src="{{ STATIC_URL }}images/ajax-waiting.gif" width="16" height="16" />
+            {% else %}
+                {{instance.state|capfirst}}
+            {% endif %}
+            
+        </td>
+        <td>
+          <div id="instanceAction{{instance.id}}" class="btn-group">
+            {% if instance.hasCurrentProcess == "false" %}    
+                {% if instance.state == "stopped"%}
+                    <a class="btn btn-inverse" href="instances/start/{{instance.id}}" >Start</a>
+                {% endif %}
+                
+                {% if instance.state == "running"%}
+                    <a class="btn btn-inverse" href="instances/stop/{{instance.id}}" >Stop</a>
+                    <a class="btn btn-inverse dropdown-toggle" href="" data-toggle="dropdown"><span class="caret"></span></a>
+                    <ul class="dropdown-menu"><li><a href="instances/reboot/{{instance.id}}">Reboot</a></li><li><a href="instances/terminate/{{instance.id}}">Terminate</a></li></ul> 
+                {% endif %}  
+            {% endif %}      
+          </div>
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+    </table>  
+  {% else %}
+    No Virtual Machines are running at the moment. Please click the 'Launch New Virtual Machine' button to launch a Virtual Machine.
+  {% endif %}
+  </div>
+</div>
+{% else %}
+  <!--   <iframe src="http://trike-ui.sf.utas.edu.au/"></iframe> -->
+  
+  {% if multiple_tap == 'true' %}
+  <div class="tabbable">
+    <ul class="nav nav-tabs">
+      {% for instance in instances %}  
+        {% if instance.tab_active %}
+            <li class="active"><a href="#instance{{forloop.counter}}" data-toggle="tab">{{instance.name}}</a></li>
+        {% else %}
+            <li class=""><a href="#instance{{forloop.counter}}" data-toggle="tab">{{instance.name}}</a></li>
+        {% endif %}        
+      {% endfor %}
+    </ul>
+    <div class="tab-content">
+      {% for instance in instances %}       
+          {% if instance.tab_active %}
+            <div id="instance{{forloop.counter}}" class="tab-pane active">
+              <iframe src=" {{ instance.url }}"></iframe>
+            </div> 
+          {% else %}
+            <div id="instance{{forloop.counter}}" class="tab-pane">
+              <iframe src=" {{ instance.url }}"></iframe>
+            </div> 
+          {% endif %}
+      {% endfor %}
+    </div><!-- /.tab-content -->
+  </div><!-- /.tabbable -->  
+    
+  {% else %}
+    <iframe id="iframe1" src=" {{ instance_url }}"></iframe>
+  {% endif %}
+ 
+  <script>
+    $(document).ready(function(){     
+      $("#footerContainer").removeClass("footerBox");
+	});
+  </script>
+{% endif %}
+
+{% endblock %}

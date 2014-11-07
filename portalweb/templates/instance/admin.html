@@ -1,0 +1,48 @@
+{% extends "home_base2.html" %}
+
+{% block sub_scripts %}
+
+<script src="{{ STATIC_URL }}scripts/backbone_application_buttons.js"></script>
+<script src="{{ STATIC_URL }}scripts/backbone_application_buttons_instances.js"></script>
+<script src="{{ STATIC_URL }}scripts/backbone_instance_admin_instances.js"></script>
+
+{% endblock %}
+
+{% block subContent %}
+
+<div id="application-box">
+  <div class="clean"></div> 
+</div>
+
+<div class="page-section-header">Virtual Machines</div>
+
+<table class="table table-striped table-hover" id="admin-instances-list-table">
+  <thead>
+    <tr class="table-header">
+      <td></td>
+      <td>Name</td>
+      <td>Size</td>
+      <td>State</td>
+      <td>Created</td>
+      <td>Group</td>
+      <td>IP</td>
+      <td>URL</td>
+      <td>Visibility</td>
+    </tr>
+  </thead>
+  <tfoot>
+    <tr class="table-footer">
+      <td colspan="9" id="pagination_admin_instances">
+      </td>
+    </tr>
+  </tfoot>
+</table>
+
+<!-- Modal -->
+<div class="modal fade" id="editViewModal" tabindex="-1" role="dialog" aria-labelledby="instance-details-modal" aria-hidden="true">
+  <div class="modal-dialog" id="modal-dialog">
+    
+  </div><!-- /.modal-dialog -->
+</div>
+
+{% endblock %}

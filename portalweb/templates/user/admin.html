@@ -1,0 +1,46 @@
+{% extends "home_base2.html" %}
+
+{% block sub_scripts %}
+
+<script src="{{ STATIC_URL }}scripts/backbone_user_admin_users.js"></script>
+<script src="{{ STATIC_URL }}scripts/backbone_application_buttons.js"></script>
+<script src="{{ STATIC_URL }}scripts/backbone_application_buttons_users.js"></script>
+
+{% endblock %}
+
+{% block subContent %}
+
+<div id="application-box">
+  <div class="clean"></div>
+</div>
+
+<div class="page-section-header">Users</div>
+
+<table class="table table-striped table-hover" id="admin-users-list-table">
+  <thead>
+    <tr class="table-header">
+      <td></td>
+      <td>Name</td>
+      <td>Email</td>
+      <td>Organization</td>
+      <td>Is System Admin?</td>
+      <td>Is AAF User?</td>
+      <td>Groups</td>
+    </tr>
+  </thead>
+  <tfoot>
+    <tr class="table-footer">
+      <td colspan="7" id="pagination_admin_users">
+      </td>
+    </tr>
+  </tfoot>
+</table>
+
+<!-- Modal -->
+<div class="modal fade" id="editViewModal" tabindex="-1" role="dialog" aria-labelledby="user-details-modal" aria-hidden="true">
+  <div class="modal-dialog" id="modal-dialog">
+    
+  </div><!-- /.modal-dialog -->
+</div>
+
+{% endblock %}

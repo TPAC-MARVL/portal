@@ -1,0 +1,92 @@
+{% extends "home_base2.html" %}
+
+{% block sub_scripts %}
+
+ <script src="{{ STATIC_URL }}scripts/backbone_mygroup_members.js"></script>
+ <script src="{{ STATIC_URL }}scripts/backbone_mygroup_instances.js"></script>
+  
+{% if is_group_admin %}
+
+  <script src="{{ STATIC_URL }}scripts/backbone_application_buttons.js"></script>
+  <script src="{{ STATIC_URL }}scripts/backbone_application_buttons_group_admin.js"></script>
+
+{% endif %}
+
+{% endblock %}
+
+{% block subContent %}
+
+<div id="application-box">
+  <div class="clean"></div> 
+</div>
+
+<div class="page-section-header">Group Members</div>
+
+<table class="table table-striped table-hover" id="members-list-table">
+  <thead>
+    <tr class="table-header">
+      <td class="short-col">Name</td>
+      <td class="short-col">Email</td>
+      <td class="short-col">Is Group Admin?</td>
+      <td class="long-col">Organization</td>
+      <td class="action">Action</td>
+    </tr>
+  </thead>
+  <tfoot>
+    <tr class="table-footer">
+      <td colspan="5" id="pagination_member">    
+      </td>
+    </tr>
+  </tfoot>
+</table>
+
+<div class="page-section-header">Group Instances</div>
+
+<table class="table table-striped table-hover" id="instances-list-table">
+  <thead>
+    <tr class="table-header">
+      <td class="short-col">Name</td>
+      <td class="short-col">Size</td>
+      <td class="short-col">State</td>
+      <td class="short-col">Created</td>
+      <td class="short-col">Group</td>
+    </tr>
+  </thead>
+  
+  <tfoot>
+    <tr class="table-footer">
+      <td colspan="5" id="pagination_instance">    
+      </td>
+    </tr>
+  </tfoot>
+</table>
+
+<div id="member-details-modal">
+</div>
+
+<div id="member-delete-modal">
+</div>
+
+<div id="instance-details-modal">
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="editViewModal" tabindex="-1" role="dialog" aria-labelledby="instance-details-modal" aria-hidden="true">
+  <div class="modal-dialog" id="modal-dialog">
+    
+  </div><!-- /.modal-dialog -->
+</div>
+
+<div hidden id="groupId">
+	{{current_group.id}}
+</div>
+
+<div hidden id="group_description">
+	{{current_group.description}}
+</div>
+
+<div hidden id="group_name">
+	{{current_group.name}}
+</div>
+
+{% endblock %}

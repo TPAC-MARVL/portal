@@ -1,0 +1,39 @@
+<form role="form" action="{{post_url}}" method="post">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title" id="myModalLabel"><span class="glyphicon glyphicon-ok"></span>{{title}}</h4>
+        </div>
+        
+        <div class="modal-body">
+          <div class="modal-header-box">
+            These users <span class="warning-sign">(
+             {{#each item_names}} 
+               {{this}}  
+             {{/each}}
+            )
+            
+            </span> 
+            
+            {{#if view_type.insert_view}}
+              will be added as system admins.
+            {{/if}}
+            
+            {{#if view_type.delete_view}}
+              will be removed from system admins.
+            {{/if}}
+
+          </div>
+          <div class="modal-warning-box">
+            <span class="confirm-sign glyphicon glyphicon-hand-right"></span> Are you sure?
+          </div>
+        </div>
+        
+        <div class="modal-footer">
+          {{#each item_ids}}
+             <input hidden type="checkbox" name="user_ids" value="{{this}}" checked />
+          {{/each}}
+          <input type="hidden" name="csrfmiddlewaretoken" value="{{csrf_token}}">
+          <button type="submit" class="btn btn-primary">submit</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        </div>
+ </form>

@@ -1,0 +1,30 @@
+<form id='commonForm' role="form" action="{{post_url}}" method="post">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title" id="myModalLabel"><span class="glyphicon glyphicon-ok"></span>{{title}}</h4>
+        </div>
+        <div class="modal-body">      
+          <div class="form-group">
+            <label for="form_group_name">Name (Max 20 characters)</label>
+            <input class="form-control" id="form_group_name" name="group_name" placeholder="Enter name" value="{{group_name}}" data-bv-notempty="true" maxlength="20" data-bv-notempty-message="The name field is required and cannot be empty">
+          </div>
+          <div class="form-group">
+            <label for="form_group_desc">Description (Max 100 characters)</label>
+             <textarea id="group_desc" name="group_description" class="form-control" placeholder="Enter description" rows="5" value="{{group_description}}" data-bv-notempty="true" maxlength="100" data-bv-notempty-message="The description field is required and cannot be empty">{{group_description}}</textarea>
+          </div>
+        </div>
+        
+        <div class="modal-footer">
+          <input type="hidden" name="page_token" value="{{page_token}}">
+          <input type="hidden" name="csrfmiddlewaretoken" value="{{csrf_token}}">
+          <input type="hidden" name="group_id" value="{{group_id}}">
+          <button type="submit" class="btn btn-primary">submit</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        </div>
+ </form>
+ 
+ <script>
+ $(document).ready(function() {
+    $('#commonForm').bootstrapValidator();
+ });
+ </script>

@@ -1,0 +1,67 @@
+{% extends "home_base2.html" %}
+
+{% block sub_scripts %}
+<script src="{{ STATIC_URL }}scripts/backbone_messages.js"></script>
+
+
+<script src="{{ STATIC_URL }}scripts/backbone_application_buttons.js"></script>
+<script src="{{ STATIC_URL }}scripts/backbone_application_buttons_message.js"></script>
+
+{% endblock %}
+
+{% block subContent %}
+
+
+<div id="application-box">
+  <div class="clean"></div> 
+</div>
+
+
+<div class="page-section-header">Messages (Inbox)</div>
+
+<table class="table table-striped table-hover" id="message-list-table">
+  <thead>
+    <tr class="table-header">
+      <td>Title</td>
+      <td>Content</td>
+      <td>Sent To</td>
+      <td>Sent By</td>
+      <td>Created Time</td>
+    </tr>
+  </thead>
+  <tfoot>
+    <tr class="table-footer">
+      <td colspan="6" id="pagination_message">
+      </td>
+    </tr>
+  </tfoot>
+</table>
+
+<div class="page-section-header">Messages (Sent)</div>
+
+<table class="table table-striped table-hover" id="message-sent-list-table">
+  <thead>
+    <tr class="table-header">
+      <td>Title</td>
+      <td>Content</td>
+      <td>Sent To</td>
+      <td>Sent By</td>
+      <td>Created Time</td>
+    </tr>
+  </thead>
+  <tfoot>
+    <tr class="table-footer">
+      <td colspan="6" id="pagination_message_sent">
+      </td>
+    </tr>
+  </tfoot>
+</table>
+  
+<!-- Modal -->
+<div class="modal fade" id="editViewModal" tabindex="-1" role="dialog" aria-labelledby="instance-details-modal" aria-hidden="true">
+  <div class="modal-dialog" id="modal-dialog">
+    
+  </div><!-- /.modal-dialog -->
+</div>  
+  
+{% endblock %}

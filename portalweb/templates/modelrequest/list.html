@@ -1,0 +1,58 @@
+{% extends "home_base2.html" %}
+
+{% block sub_scripts %}
+
+<script src="{{ STATIC_URL }}scripts/backbone_instance_types.js"></script>
+<script src="{{ STATIC_URL }}scripts/backbone_model_requests.js"></script>
+
+<script src="{{ STATIC_URL }}scripts/backbone_application_buttons.js"></script>
+<script src="{{ STATIC_URL }}scripts/backbone_application_buttons_model_request.js"></script>
+
+{% if request.session.user.is_admin %}
+<script src="{{ STATIC_URL }}scripts/backbone_application_buttons_model_request_admin.js"></script>
+{% endif %}
+
+{% endblock %}
+
+{% block subContent %}
+
+<div id="application-box">
+  <div class="clean"></div>
+</div>
+
+<div class="page-section-header">Model Request</div>
+
+<table class="table table-striped table-hover" id="model-request-list-table">
+  <thead>
+    <tr class="table-header">
+       <td></td>
+      <td>Request Id</td>
+      <td>Status</td>
+      <td>Type</td>
+      {% if request.session.user.is_admin %}
+       <td>Created By</td>
+       <td>Changed By</td>
+      {% endif %}
+      <td>Created Time</td>
+      <td>Action</td>
+    </tr>
+  </thead>
+  <tfoot>
+    <tr class="table-footer">      
+      <td  {% if request.session.user.is_admin %} colspan="8" {% else %} colspan="6" {% endif %} id="pagination_model_request">
+      </td>      
+    </tr>
+  </tfoot>
+</table>
+
+<div id="request-details-modal">
+</div>
+ 
+<!-- Modal -->
+<div class="modal fade" id="editViewModal" tabindex="-1" role="dialog" aria-labelledby="instance-details-modal" aria-hidden="true">
+  <div class="modal-dialog" id="modal-dialog">
+    
+  </div><!-- /.modal-dialog -->
+</div> 
+ 
+{% endblock %}
